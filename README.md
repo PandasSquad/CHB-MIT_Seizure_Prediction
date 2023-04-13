@@ -8,11 +8,16 @@ The code in this repository transforms the raw data into a format that can be us
 
 Data preparation includes analysis, feature extraction, feature selection and transformation.
 
+CHB-MIT Scalp EEG Database: <https://physionet.org/content/chbmit/1.0.0/>.
+
 ## Installation
 
 1. Clone the repository
-2. Install the required packages (see requirements.txt)
-3. Edit the data_path.txt file with the local data folder path on your system. You have to download
+2. Install the required packages (see requirements.txt) using `pip install -r requirements.txt` into your virtual environment. Python used: 3.10.4.
+3. Edit the `data_path.txt` file with the local data folder path on your system. If you don't have the dataset, use this command to download it: 
+<br>
+`wget -r -np -nH --cut-dirs=3 -R index.html* https://physionet.org/files/chbmit/1.0.0/`. <br> Then write on the `data_path.txt` file the path to the folder where you downloaded the dataset.
+
 
 ## Create `data_path.txt` file
 
