@@ -1,10 +1,12 @@
-# CHB-MIT Seizure Prediction - Data preparation (analysis, feature extraction, feature selection and transformation) 🧠 📊
+# CHB-MIT Seizure Prediction - Data preparation 🧠 📊
 
 ## Description
 
 This repository contains the code for preparing the CHB-MIT Seizure Prediction dataset for a comparative study of different modern Deep Learning techniques to predict the pre-ictal period using EEG data. The study is part of the final project for the Biomedical Engineering degree by Matías N. Sosa and Cristian E. Morilla.
 
 The code in this repository transforms the raw data into a format that can be used for training and testing various Deep Learning models for seizure prediction.
+
+Data preparation includes analysis, feature extraction, feature selection and transformation.
 
 ## Installation
 
