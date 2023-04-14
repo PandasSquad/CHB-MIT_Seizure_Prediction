@@ -14,16 +14,16 @@ CHB-MIT Scalp EEG Database: <https://physionet.org/content/chbmit/1.0.0/>.
 
 1. Clone the repository
 2. Install the required packages (see requirements.txt) using `pip install -r requirements.txt` into your virtual environment. Python used: 3.10.4.
-3. Edit the `data_path.txt` file with the local data folder path on your system. If you don't have the dataset, use this command to download it: 
+3. Edit the `data_path.json` file with the local data folder path on your system. If you don't have the dataset, use this command to download it: 
 <br>
-`wget -r -np -nH --cut-dirs=3 -R index.html* https://physionet.org/files/chbmit/1.0.0/`. <br> Then write on the `data_path.txt` file the path to the folder where you downloaded the dataset.
+`wget -r -np -nH --cut-dirs=3 -R index.html* https://physionet.org/files/chbmit/1.0.0/`. <br> Then write on the `data_path.json` file the path to the folder where you downloaded the dataset.
 
 
-## Create `data_path.txt` file
+## Create `data_path.json` file
 
-To avoid conflicts and ensure that each team member has access to their own data safely, each member can have their own data_path.txt file in their local project folder, which specifies the path to the data folder on their system. The data_path.txt file is added to the .gitignore file, so each team member's file is not uploaded to the repository.
+To avoid conflicts and ensure that each team member has access to their own data safely, each member can have their own data_path.json file in their local project folder, which specifies the path to the data folder on their system. The data_path.json file is added to the .gitignore file, so each team member's file is not uploaded to the repository.
 
-To read the data folder path from the data_path.txt file, each team member edits their own data_path.txt file with the local data folder path on their system. Then, when running the Python code, it reads the data folder path from the local data_path.txt file. This approach allows each team member to specify their own data folder path without affecting the project's code, but it may be a bit more complicated to set up compared to using environment variables.
+To read the data folder path from the data_path.json file, each team member edits their own data_path.json file with the local data folder path on their system. Then, when running the Python code, it reads the data folder path from the local data_path.json file. This approach allows each team member to specify their own data folder path without affecting the project's code, but it may be a bit more complicated to set up compared to using environment variables.
 
 ## License
 
