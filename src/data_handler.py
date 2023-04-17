@@ -163,7 +163,29 @@ def get_seizure_data(patient: str) -> pd.DataFrame:
         # convert start_t to a string
         start_t = str(start_t)
         df.loc[index, "start_end_times"] = start_t
+
+    # complete with None
+    df["start_end_times"] = df["start_end_times"].fillna("None")
+
     return df
+
+
+def get_seizure_time_from_edf(patient: str, edf: str) -> List[Tuple[int, int]]:
+    """Get the seizure time from the edf file name
+
+    :param patient: The patient name
+    :param edf: The edf file name
+    :return: A tuple with the start and end time of the seizure
+    """
+    import ast
+
+    df = get_seizure_data(patient)
+    df = df[df["file_name"] == edf]
+    start_end_times = df["start_end_times"].values[0]
+    if start_end_times == "None":
+        raise ValueError("No seizure for this file")
+    start_end_times = ast.literal_eval(start_end_times)
+    return start_end_times
 
 
 def get_features() -> List[str]:
