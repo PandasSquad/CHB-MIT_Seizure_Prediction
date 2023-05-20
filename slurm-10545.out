@@ -1,0 +1,134 @@
+Sun May 14 20:50:20 2023       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 510.47.03    Driver Version: 510.47.03    CUDA Version: 11.6     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA A30          On   | 00000000:03:00.0 Off |                    0 |
+| N/A   21C    P0    26W / 165W |      0MiB / 24576MiB |      0%      Default |
+|                               |                      |             Disabled |
++-------------------------------+----------------------+----------------------+
+|   1  NVIDIA A30          On   | 00000000:85:00.0 Off |                    0 |
+| N/A   36C    P0   108W / 165W |    265MiB / 24576MiB |     76%      Default |
+|                               |                      |             Disabled |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    1   N/A  N/A    151443      C                                     263MiB |
++-----------------------------------------------------------------------------+
+Traceback (most recent call last):
+  File "/home/mnsosa/CHB-MIT_Seizure_Prediction/prueba_gpu.py", line 1, in <module>
+    import tensorflow as tf
+ModuleNotFoundError: No module named 'tensorflow'
+Using cpu device.
+Traceback (most recent call last):
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/connectionpool.py", line 398, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/connection.py", line 244, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/http/client.py", line 1283, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/http/client.py", line 1329, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/http/client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/http/client.py", line 976, in send
+    self.connect()
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+           ^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x154d069b2810>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/requests/adapters.py", line 487, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/connectionpool.py", line 815, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/connectionpool.py", line 815, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/connectionpool.py", line 815, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  [Previous line repeated 2 more times]
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/2.0/mlflow/experiments/get-by-name?experiment_name=MLP+EEG (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x154d069b2810>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/mlflow/utils/rest_utils.py", line 187, in http_request
+    return _get_http_response_with_retries(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/mlflow/utils/rest_utils.py", line 118, in _get_http_response_with_retries
+    return session.request(method, url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/requests/adapters.py", line 520, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/2.0/mlflow/experiments/get-by-name?experiment_name=MLP+EEG (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x154d069b2810>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mnsosa/CHB-MIT_Seizure_Prediction/src/train.py", line 61, in <module>
+    mlflow.set_experiment("MLP EEG")
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/mlflow/tracking/fluent.py", line 114, in set_experiment
+    experiment = client.get_experiment_by_name(experiment_name)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/mlflow/tracking/client.py", line 461, in get_experiment_by_name
+    return self._tracking_client.get_experiment_by_name(name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/mlflow/tracking/_tracking_service/client.py", line 220, in get_experiment_by_name
+    return self.store.get_experiment_by_name(name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/mlflow/store/tracking/rest_store.py", line 304, in get_experiment_by_name
+    response_proto = self._call_endpoint(GetExperimentByName, req_body)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/mlflow/store/tracking/rest_store.py", line 56, in _call_endpoint
+    return call_endpoint(self.get_host_creds(), endpoint, method, json_body, response_proto)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/mlflow/utils/rest_utils.py", line 296, in call_endpoint
+    response = http_request(
+               ^^^^^^^^^^^^^
+  File "/home/mnsosa/miniconda3/envs/torch-gpu/lib/python3.11/site-packages/mlflow/utils/rest_utils.py", line 205, in http_request
+    raise MlflowException(f"API request to {url} failed with exception {e}")
+mlflow.exceptions.MlflowException: API request to http://localhost:5000/api/2.0/mlflow/experiments/get-by-name failed with exception HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /api/2.0/mlflow/experiments/get-by-name?experiment_name=MLP+EEG (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x154d069b2810>: Failed to establish a new connection: [Errno 111] Connection refused'))

@@ -1,0 +1,15 @@
+artifact_uri: file:///home/mnsosa/CHB-MIT_Seizure_Prediction/mlruns/270126661997838468/7cda580baa054e2cbdfaa87fe6cb2912/artifacts
+end_time: 1684157849043
+entry_point_name: ''
+experiment_id: '270126661997838468'
+lifecycle_stage: active
+run_id: 7cda580baa054e2cbdfaa87fe6cb2912
+run_name: adventurous-cat-111
+run_uuid: 7cda580baa054e2cbdfaa87fe6cb2912
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1684157072132
+status: 3
+tags: []
+user_id: mnsosa

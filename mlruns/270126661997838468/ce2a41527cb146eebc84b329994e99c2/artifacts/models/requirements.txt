@@ -1,0 +1,5 @@
+mlflow<3,>=2.3
+cloudpickle==2.2.1
+numpy==1.24.3
+torch==1.13.1
+tqdm==4.65.0
