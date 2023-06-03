@@ -1,67 +1,61 @@
-"""Train script."""
-import torch.optim as optim
-import torch.nn as nn
-import torch
-from torch.utils.data import DataLoader
-from tqdm import tqdm
+"""Train the model."""
 import mlflow
+from pytorch_lightning import Trainer
+from pytorch_lightning.callbacks import EarlyStopping
+from torch.utils.data import random_split
 from dataset import CustomDataset
 from models import MLP
 
-# autolog
-mlflow.pytorch.autolog()
 
+# Define los parámetros de tu experimento
+params = {
+    "batch_size": 64,
+    "lr": 0.001,
+    "epochs": 30,
+}
 
-def train() -> None:
-    """Train the model."""
-    folder_path = "data/windows_per_csv"
-    print("Loading dataset...")
-    dataset = CustomDataset(folder_path)
-    print("Dataset loaded.")
-    batch_size = 32
-    print("Creating dataloader...")
-    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
-    print("Dataloader created.")
+# Carga los datos
+folder_path = "data/windows_per_csv"
+dataset = CustomDataset(folder_path)
 
-    model = MLP()
-    criterion = nn.CrossEntropyLoss()  # Función de pérdida
-    optimizer = optim.Adam(model.parameters(), lr=0.001)  # Optimizador
+# Divide los datos
+train_len = int(len(dataset) * 0.7)
+val_len = (len(dataset) - train_len) // 2
+test_len = len(dataset) - train_len - val_len
+train_data, val_data, test_data = random_split(dataset, [train_len, val_len, test_len])
 
-    # Entrenamiento del modelo
-    num_epochs = 10
+# Crea la instancia del modelo
+model = MLP(train_data=train_data, val_data=val_data, test_data=test_data)
 
-    for epoch in tqdm(range(num_epochs)):
-        running_loss = 0.0
-        for inputs, labels in dataloader:
-            inputs = inputs.float()  # Convert inputs to float
-            labels = labels.long()
+# Callback para que no se estanque el entrenamiento
+early_stop_callback = EarlyStopping(
+    monitor="val_loss",
+    min_delta=0.00,
+    patience=5,
+    verbose=False,
+    mode="min",
+)
 
-            optimizer.zero_grad()
-            outputs = model(inputs)
-            loss = criterion(outputs, labels)  # type: ignore
-            loss.backward()
-            optimizer.step()
-            running_loss += loss.item() * inputs.size(0)
-            accuracy = (outputs.argmax(dim=1) == labels).float().mean()
+trainer = Trainer(max_epochs=params["epochs"], callbacks=[early_stop_callback])
 
-        epoch_loss = running_loss / len(dataset)
-        print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {epoch_loss}")
-        mlflow.log_metric("loss", epoch_loss)
-        mlflow.log_metric("accuracy", accuracy)
+# Comienza el experimento de MLFlow
+with mlflow.start_run():
+    # Registra los parámetros
+    mlflow.log_params(params)
 
-        mlflow.pytorch.log_model(model, "models")
+    # Entrena el modelo
+    trainer.fit(
+        model,
+        train_dataloaders=model.train_dataloader(),
+        val_dataloaders=model.val_dataloader(),
+    )
 
-    print("Entrenamiento finalizado.")
+    # Registra el modelo en MLFlow
+    mlflow.pytorch.log_model(model, "model_1_MLP")
 
+    # Evalúa el modelo
+    trainer.test()
 
-if __name__ == "__main__":
-    # check if cuda is available
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using {device} device.")
-
-    # mlflow settings
-    # mlflow.set_tracking_uri("http://localhost:5000")
-    mlflow.set_experiment("MLP EEG")
-
-    with mlflow.start_run():
-        train()
+    # Registra las métricas de prueba en MLFlow
+    for key, value in trainer.logged_metrics.items():
+        mlflow.log_metric(key, value)

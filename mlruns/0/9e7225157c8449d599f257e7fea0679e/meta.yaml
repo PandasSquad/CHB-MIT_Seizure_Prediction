@@ -1,0 +1,15 @@
+artifact_uri: file:///home/mnsosa/CHB-MIT_Seizure_Prediction/mlruns/0/9e7225157c8449d599f257e7fea0679e/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 9e7225157c8449d599f257e7fea0679e
+run_name: wise-sow-759
+run_uuid: 9e7225157c8449d599f257e7fea0679e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1684623760485
+status: 1
+tags: []
+user_id: mnsosa
