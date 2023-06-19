@@ -31,6 +31,9 @@ class MLP(pl.LightningModule):
             nn.Linear(32, 4),
         )
 
+        # log hyperparameters
+        self.save_hyperparameters()
+
     def forward(self, tensor: Tensor) -> Tensor:
         """
         Forward pass through the network.
@@ -38,6 +41,7 @@ class MLP(pl.LightningModule):
         :param tensor: Input tensor
         :return: Output tensor
         """
+        # convert tensor into torch.float32
         return self.network(tensor)
 
     def training_step(self, batch: Any, batch_idx: int) -> Tensor:
@@ -51,7 +55,8 @@ class MLP(pl.LightningModule):
         x, y = batch
         y_hat = self.network(x)
         loss = nn.functional.cross_entropy(y_hat, y)
-        self.log("train_loss", loss)
+        # self.log("train_loss", loss)
+
         return loss
 
     def validation_step(self, batch: Any, batch_idx: int) -> None:
@@ -66,6 +71,19 @@ class MLP(pl.LightningModule):
         y_hat = self.network(x)
         loss = nn.functional.cross_entropy(y_hat, y)
         self.log("val_loss", loss)
+
+    def test_step(self, batch: Any, batch_idx: int) -> None:
+        """
+        Perform one step of testing.
+
+        :param batch: Batch data
+        :param batch_idx: Index of the batch
+        :return: None
+        """
+        x, y = batch
+        y_hat = self.network(x)
+        loss = nn.functional.cross_entropy(y_hat, y)
+        self.log("test_loss", loss)
 
     def configure_optimizers(self) -> torch.optim.Optimizer:
         """

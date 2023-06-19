@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 from torch.utils.data import Dataset
+import torch
+
 
 
 class CustomDataset(Dataset):
@@ -40,6 +42,8 @@ class CustomDataset(Dataset):
         """
         file_path = self.file_paths[idx]
         data = pd.read_csv(file_path)
+        # convert to float32
+        data = data.astype("float32")
         return data.values, self.labels[idx]
 
     def _load_file_paths(self) -> None:

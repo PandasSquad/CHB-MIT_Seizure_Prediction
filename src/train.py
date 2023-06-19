@@ -3,9 +3,12 @@ import mlflow
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping
 from torch.utils.data import random_split
+from pytorch_lightning.loggers import MLFlowLogger
 from dataset import CustomDataset
 from models import MLP
+import json
 
+mlf_logger = MLFlowLogger(experiment_name="lightning_logs", tracking_uri="../mlruns")
 
 # Define los parámetros de tu experimento
 params = {
@@ -36,7 +39,12 @@ early_stop_callback = EarlyStopping(
     mode="min",
 )
 
-trainer = Trainer(max_epochs=params["epochs"], callbacks=[early_stop_callback])
+trainer = Trainer(
+    max_epochs=params["epochs"],
+    callbacks=[early_stop_callback],
+    logger=mlf_logger,
+)
+
 
 # Comienza el experimento de MLFlow
 with mlflow.start_run():
@@ -59,3 +67,7 @@ with mlflow.start_run():
     # Registra las métricas de prueba en MLFlow
     for key, value in trainer.logged_metrics.items():
         mlflow.log_metric(key, value)
+
+    # Save logged_metrics to a json file
+    with open("metrics.json", "w") as f:
+        json.dump(trainer.logged_metrics, f)

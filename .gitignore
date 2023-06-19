@@ -1,5 +1,8 @@
 data_path.json
 data
+585718752977019583
+lightning_logs
+mlruns
 
 # GENERAL GITIGNORE FOR PYTHON PROJECTS
 
